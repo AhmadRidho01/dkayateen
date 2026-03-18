@@ -18,17 +18,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: { slug?: string[] };
 }) {
   return (
     <html lang="id">
-      <body className={`${geist.variable} antialiased`}>
-        <Navbar />
-        <main className="pt-16">{children}</main>
-        <Footer />
-        <WhatsAppButton />
-      </body>
+      <body className={`${geist.variable} antialiased`}>{children}</body>
     </html>
   );
 }
