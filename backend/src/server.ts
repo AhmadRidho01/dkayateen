@@ -6,6 +6,7 @@ import "dotenv/config";
 import connectDB from "./config/db";
 import productRoutes from "./routes/productRoutes";
 import authRoutes from "./routes/authRoutes";
+import testimonialRoutes from "./routes/testimonialRoutes";
 import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
@@ -23,20 +24,15 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// Debug routes — hapus setelah verified
-app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
-  next();
-});
-
 // Routes
 app.get("/", (req, res) => {
   res.json({ message: "D'Kayateen API is running 🚀" });
 });
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/testimonials", testimonialRoutes);
 
-// Error Handler
+// Error handler — HARUS paling bawah
 app.use(errorHandler);
 
 // Connect to MongoDB THEN start server
