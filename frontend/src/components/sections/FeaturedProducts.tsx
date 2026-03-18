@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import axiosInstance from "@/lib/axios";
 import type { IProduct, IApiResponse } from "@/types";
-import { WHATSAPP_NUMBER, WHATSAPP_MESSAGES } from "@/constants";
+import ProductCard from "@/components/shared/ProductCard";
 
 export default function FeaturedProducts() {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -81,76 +81,5 @@ export default function FeaturedProducts() {
         </motion.div>
       </div>
     </section>
-  );
-}
-
-function ProductCard({ product, index }: { product: IProduct; index: number }) {
-  const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    WHATSAPP_MESSAGES.order(product.name),
-  )}`;
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -4 }}
-      className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-300"
-    >
-      {/* Image */}
-      <div className="relative h-56 bg-slate-100 overflow-hidden">
-        <img
-          src={
-            product.images[0] ||
-            "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800&q=80"
-          }
-          alt={product.name}
-          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-        />
-      </div>
-
-      {/* Content */}
-      <div className="p-6">
-        <p className="text-xs text-green-600 font-medium uppercase tracking-wider mb-1">
-          {product.category}
-        </p>
-        <h3 className="font-semibold text-slate-900 text-lg mb-2">
-          {product.name}
-        </h3>
-        <p className="text-slate-500 text-sm line-clamp-2 mb-4">
-          {product.description}
-        </p>
-
-        {/* Variants */}
-        {product.variants.length > 0 && (
-          <div className="flex flex-wrap gap-1 mb-4">
-            {product.variants.slice(0, 3).map((variant) => (
-              <span
-                key={variant.name}
-                className="text-xs px-2 py-1 bg-slate-100 text-slate-600 rounded-full"
-              >
-                {variant.name}
-              </span>
-            ))}
-            {product.variants.length > 3 && (
-              <span className="text-xs px-2 py-1 bg-slate-100 text-slate-600 rounded-full">
-                +{product.variants.length - 3} lagi
-              </span>
-            )}
-          </div>
-        )}
-
-        {/* CTA Button */}
-        <a
-          href={waLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block w-full text-center py-2.5 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors duration-200"
-        >
-          Pesan Sekarang
-        </a>
-      </div>
-    </motion.div>
   );
 }
