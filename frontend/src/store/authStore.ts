@@ -2,9 +2,8 @@ import { create } from "zustand";
 import type { IAuthState } from "@/types";
 
 export const useAuthStore = create<IAuthState>((set) => ({
-  token: typeof window !== "undefined" ? localStorage.getItem("token") : null,
-  isAuthenticated:
-    typeof window !== "undefined" ? !!localStorage.getItem("token") : false,
+  token: null,
+  isAuthenticated: false,
 
   login: (token: string) => {
     localStorage.setItem("token", token);

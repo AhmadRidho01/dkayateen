@@ -1,78 +1,137 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { WHATSAPP_NUMBER, WHATSAPP_MESSAGES } from "@/constants";
 import Link from "next/link";
+import { ArrowRight, MessageCircle } from "lucide-react";
+import { WHATSAPP_NUMBER, WHATSAPP_MESSAGES } from "@/constants";
 
 export default function HeroSection() {
-  const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGES.general)}`;
+  const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+    WHATSAPP_MESSAGES.general,
+  )}`;
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-50">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&q=80)",
-        }}
-      >
-        <div className="absolute inset-0 bg-slate-900/60" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1593840835024-4ccbf5b171d7?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Hero Background"
+          className="w-full h-full object-cover"
+        />
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-linear-to-br from-slate-900/80 via-slate-900/60 to-slate-800/40" />
+        <div className="absolute inset-0 bg-linear-to-t from-slate-900/60 via-transparent to-transparent" />
       </div>
+
+      {/* Decorative Elements */}
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-green-400 font-medium tracking-widest uppercase text-sm mb-4"
-        >
-          Produk Olahan Laut & Camilan
-        </motion.p>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6"
-        >
-          Cita Rasa Autentik <br />
-          <span className="text-green-400">D'Kayateen</span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-slate-300 text-lg max-w-2xl mx-auto mb-8"
-        >
-          Kerupuk ikan, rambak cumi, rajungan, kelor, rengginang, dan kacang
-          sangrai. Dibuat dengan bahan pilihan, cita rasa terjamin.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
-        >
-          <Link
-            href="/products"
-            className="px-8 py-3 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition-colors duration-200"
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl">
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6"
           >
-            Lihat Produk
-          </Link>
-          <a
-            href={waLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-8 py-3 bg-white/10 hover:bg-white/20 text-white font-medium rounded-lg border border-white/30 transition-colors duration-200"
+            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+            <span className="text-white/90 text-sm font-medium">
+              Produk Olahan Laut & Camilan Premium
+            </span>
+          </motion.div>
+
+          {/* Heading */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 leading-[1.1]"
           >
-            Hubungi Kami
-          </a>
-        </motion.div>
+            Cita Rasa
+            <span className="block text-green-400">Autentik</span>
+            D'Kayateen
+          </motion.h1>
+
+          {/* Description */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-slate-300 text-lg sm:text-xl max-w-xl mb-10 leading-relaxed"
+          >
+            Kerupuk ikan, rambak cumi, rajungan, kelor, rengginang, dan kacang
+            sangrai. Dibuat dengan bahan pilihan, cita rasa terjamin.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-col sm:flex-row gap-4"
+          >
+            <Link
+              href="/products"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-green-500 hover:bg-green-400 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-green-500/30 group"
+            >
+              Lihat Produk
+              <ArrowRight
+                size={18}
+                className="group-hover:translate-x-1 transition-transform"
+              />
+            </Link>
+            <a
+              href={waLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 backdrop-blur-sm transition-all duration-200"
+            >
+              <MessageCircle size={18} />
+              Hubungi Kami
+            </a>
+          </motion.div>
+
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex items-center gap-8 mt-16 pt-8 border-t border-white/10"
+          >
+            {[
+              { value: "6+", label: "Varian Produk" },
+              { value: "100%", label: "Bahan Pilihan" },
+              { value: "24/7", label: "Layanan Info" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <p className="text-white font-bold text-2xl">{stat.value}</p>
+                <p className="text-slate-400 text-sm">{stat.label}</p>
+              </div>
+            ))}
+          </motion.div>
+        </div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <span className="text-white/40 text-xs tracking-widest uppercase">
+          Scroll
+        </span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5 }}
+          className="w-0.5 h-8 bg-linear-to-b from-white/40 to-transparent"
+        />
+      </motion.div>
     </section>
   );
 }

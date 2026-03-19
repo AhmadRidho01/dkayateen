@@ -15,3 +15,7 @@ body {
   background-color: #fafafa;
   color: #1e293b;
 }
+
+.pt-navbar {
+  padding-top: 5rem;
+}

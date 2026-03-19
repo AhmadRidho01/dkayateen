@@ -10,7 +10,7 @@ export default function PublicLayout({
   return (
     <>
       <Navbar />
-      <main className="pt-16">{children}</main>
+      <main>{children}</main>
       <Footer />
       <WhatsAppButton />
     </>

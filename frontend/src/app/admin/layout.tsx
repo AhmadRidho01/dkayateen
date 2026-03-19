@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuthStore } from "@/store/authStore";
 import AdminSidebar from "@/components/layout/AdminSidebar";
@@ -10,21 +10,29 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, login } = useAuthStore();
   const router = useRouter();
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
 
   const isLoginPage = pathname === "/admin/login";
 
   useEffect(() => {
-    if (!isAuthenticated && !isLoginPage) {
+    // Rehydrate dari localStorage setelah mount
+    const token = localStorage.getItem("token");
+    if (token) login(token);
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted && !isAuthenticated && !isLoginPage) {
       router.push("/admin/login");
     }
-  }, [isAuthenticated, isLoginPage, router]);
+  }, [mounted, isAuthenticated, isLoginPage, router]);
 
-  if (isLoginPage) {
-    return <>{children}</>;
-  }
+  if (!mounted) return null;
+
+  if (isLoginPage) return <>{children}</>;
 
   if (!isAuthenticated) return null;
 
