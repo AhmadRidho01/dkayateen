@@ -1,14 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
+import { Quote, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import axiosInstance from "@/lib/axios";
 import type { ITestimonial, IApiResponse } from "@/types";
-import { Quote } from "lucide-react";
+import { containerStyle } from "@/constants";
 
 export default function TestimonialSection() {
   const [testimonials, setTestimonials] = useState<ITestimonial[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchTestimonials = async () => {
@@ -27,75 +30,181 @@ export default function TestimonialSection() {
     fetchTestimonials();
   }, []);
 
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+  };
+
   if (!loading && testimonials.length === 0) return null;
 
   return (
-    <section id="testimonials" className="py-28 bg-slate-50 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      id="testimonials"
+      style={{
+        paddingTop: "4rem",
+        paddingBottom: "4rem",
+        backgroundColor: "#f8fafc",
+        overflow: "hidden",
+      }}
+    >
+      <div style={containerStyle}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          style={{ textAlign: "center", marginBottom: "3rem" }}
         >
-          <p className="text-green-600 font-medium tracking-widest uppercase text-xs mb-3">
+          <p
+            style={{
+              color: "#16a34a",
+              fontWeight: "500",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              fontSize: "0.75rem",
+              marginBottom: "0.75rem",
+            }}
+          >
             Kata Mereka
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+          <h2
+            style={{
+              fontSize: "2.25rem",
+              fontWeight: "700",
+              letterSpacing: "-0.025em",
+              color: "#0f172a",
+            }}
+          >
             Testimoni Pelanggan
           </h2>
-          <p className="text-slate-500 mt-4 max-w-xl mx-auto">
+          <p
+            style={{
+              color: "#64748b",
+              marginTop: "0.75rem",
+              textAlign: "center",
+            }}
+          >
             Kepuasan pelanggan adalah prioritas utama kami
           </p>
         </motion.div>
 
-        {/* Testimonials */}
+        {/* Slider */}
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "1.5rem",
+            }}
+          >
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="bg-white rounded-2xl p-6 space-y-4">
-                <div className="bg-slate-100 h-4 w-full rounded animate-pulse" />
-                <div className="bg-slate-100 h-4 w-4/5 rounded animate-pulse" />
-                <div className="flex items-center gap-3 mt-4">
-                  <div className="bg-slate-100 w-10 h-10 rounded-full animate-pulse" />
-                  <div className="space-y-2">
-                    <div className="bg-slate-100 h-3 w-24 rounded animate-pulse" />
-                    <div className="bg-slate-100 h-3 w-16 rounded animate-pulse" />
-                  </div>
-                </div>
-              </div>
+              <div
+                key={i}
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: "1rem",
+                  padding: "1.75rem",
+                  height: "12rem",
+                }}
+              />
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "1.5rem",
+            }}
+          >
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={testimonial._id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-2xl p-7 shadow-sm border border-slate-100 hover:shadow-md hover:border-slate-200 transition-all duration-300 flex flex-col"
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: "1rem",
+                  padding: "1.75rem",
+                  border: "1px solid #f1f5f9",
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
               >
-                <Quote size={28} className="text-green-500/40 mb-4" />
-                <p className="text-slate-600 text-sm leading-relaxed flex-1 mb-6">
+                {/* Stars */}
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "0.25rem",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={14}
+                      style={{ color: "#f59e0b", fill: "#f59e0b" }}
+                    />
+                  ))}
+                </div>
+
+                <p
+                  style={{
+                    color: "#475569",
+                    fontSize: "0.875rem",
+                    lineHeight: "1.75",
+                    flex: 1,
+                    marginBottom: "1.5rem",
+                  }}
+                >
                   {testimonial.message}
                 </p>
-                <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.75rem",
+                    paddingTop: "1rem",
+                    borderTop: "1px solid #f1f5f9",
+                  }}
+                >
                   <img
                     src={
                       testimonial.avatar ||
                       `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&background=e2e8f0&color=475569&bold=true`
                     }
                     alt={testimonial.name}
-                    className="w-10 h-10 rounded-full object-cover ring-2 ring-slate-100"
+                    style={{
+                      width: "2.5rem",
+                      height: "2.5rem",
+                      borderRadius: "9999px",
+                      objectFit: "cover",
+                      border: "2px solid #f1f5f9",
+                    }}
                   />
                   <div>
-                    <p className="font-semibold text-slate-900 text-sm">
+                    <p
+                      style={{
+                        fontWeight: "600",
+                        color: "#0f172a",
+                        fontSize: "0.875rem",
+                      }}
+                    >
                       {testimonial.name}
                     </p>
-                    <p className="text-slate-400 text-xs mt-0.5">
+                    <p
+                      style={{
+                        color: "#94a3b8",
+                        fontSize: "0.75rem",
+                        marginTop: "0.125rem",
+                      }}
+                    >
                       {testimonial.role}
                     </p>
                   </div>

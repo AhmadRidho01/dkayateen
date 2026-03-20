@@ -6,6 +6,7 @@ import axiosInstance from "@/lib/axios";
 import type { IApiResponse, IProduct } from "@/types";
 import { Plus, Pencil, Trash2, Package } from "lucide-react";
 import ProductFormModal from "@/components/shared/ProductFormModal";
+import { containerStyle } from "@/constants";
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -39,133 +40,256 @@ export default function AdminProductsPage() {
     }
   };
 
-  const handleEdit = (product: IProduct) => {
-    setSelectedProduct(product);
-    setIsModalOpen(true);
-  };
-
-  const handleAdd = () => {
-    setSelectedProduct(null);
-    setIsModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-    setSelectedProduct(null);
-    fetchProducts();
-  };
-
   return (
-    <div className="p-8">
+    <div
+      style={{
+        ...containerStyle,
+        paddingTop: "2.5rem",
+        paddingBottom: "2.5rem",
+      }}
+    >
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "2rem",
+        }}
+      >
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+          <h1
+            style={{
+              fontSize: "1.5rem",
+              fontWeight: "700",
+              letterSpacing: "-0.025em",
+              color: "#0f172a",
+            }}
+          >
             Produk
           </h1>
-          <p className="text-slate-500 text-sm mt-1">
+          <p
+            style={{
+              color: "#94a3b8",
+              fontSize: "0.875rem",
+              marginTop: "0.25rem",
+            }}
+          >
             Kelola katalog produk D'Kayateen
           </p>
         </div>
         <button
-          onClick={handleAdd}
-          className="flex items-center gap-2 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-sm font-medium rounded-lg transition-colors"
+          onClick={() => {
+            setSelectedProduct(null);
+            setIsModalOpen(true);
+          }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            padding: "0.625rem 1.25rem",
+            backgroundColor: "#0f172a",
+            color: "white",
+            fontSize: "0.875rem",
+            fontWeight: "500",
+            borderRadius: "0.75rem",
+            border: "none",
+            cursor: "pointer",
+            transition: "all 0.2s",
+          }}
         >
           <Plus size={16} />
           Tambah Produk
         </button>
       </div>
 
-      {/* Table */}
+      {/* Content */}
       {loading ? (
-        <div className="space-y-3">
+        <div
+          style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}
+        >
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="bg-white rounded-xl h-16 animate-pulse" />
+            <div
+              key={i}
+              style={{
+                backgroundColor: "white",
+                borderRadius: "0.75rem",
+                height: "4rem",
+                border: "1px solid #f1f5f9",
+              }}
+            />
           ))}
         </div>
       ) : products.length === 0 ? (
-        <div className="text-center py-24 bg-white rounded-2xl border border-slate-100">
-          <Package size={40} className="text-slate-300 mx-auto mb-3" />
-          <p className="text-slate-500">
+        <div
+          style={{
+            textAlign: "center",
+            paddingTop: "6rem",
+            paddingBottom: "6rem",
+            backgroundColor: "white",
+            borderRadius: "1rem",
+            border: "1px solid #f1f5f9",
+          }}
+        >
+          <Package
+            size={40}
+            style={{ color: "#e2e8f0", margin: "0 auto 0.75rem" }}
+          />
+          <p style={{ color: "#64748b" }}>
             Belum ada produk. Tambahkan produk pertama!
           </p>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
-          <table className="w-full">
-            <thead className="bg-slate-50 border-b border-slate-100">
-              <tr>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                  Produk
-                </th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                  Kategori
-                </th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                  Varian
-                </th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="text-right px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                  Aksi
-                </th>
+        <div
+          style={{
+            backgroundColor: "white",
+            borderRadius: "1rem",
+            border: "1px solid #f1f5f9",
+            overflow: "hidden",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+          }}
+        >
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <thead>
+              <tr
+                style={{
+                  backgroundColor: "#f8fafc",
+                  borderBottom: "1px solid #f1f5f9",
+                }}
+              >
+                {["Produk", "Kategori", "Varian", "Status", ""].map((h) => (
+                  <th
+                    key={h}
+                    style={{
+                      textAlign: h === "" ? "right" : "left",
+                      padding: "0.875rem 1.5rem",
+                      fontSize: "0.75rem",
+                      fontWeight: "600",
+                      color: "#94a3b8",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    {h}
+                  </th>
+                ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody>
               {products.map((product, index) => (
                 <motion.tr
                   key={product._id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: index * 0.05 }}
-                  className="hover:bg-slate-50 transition-colors"
+                  style={{ borderBottom: "1px solid #f8fafc" }}
                 >
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
+                  <td style={{ padding: "1rem 1.5rem" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.75rem",
+                      }}
+                    >
                       <img
                         src={
                           product.images[0] ||
                           "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&q=80"
                         }
                         alt={product.name}
-                        className="w-10 h-10 rounded-lg object-cover bg-slate-100"
+                        style={{
+                          width: "2.5rem",
+                          height: "2.5rem",
+                          borderRadius: "0.5rem",
+                          objectFit: "cover",
+                          backgroundColor: "#f1f5f9",
+                        }}
                       />
-                      <span className="font-medium text-slate-900 text-sm">
+                      <span
+                        style={{
+                          fontWeight: "500",
+                          color: "#0f172a",
+                          fontSize: "0.875rem",
+                        }}
+                      >
                         {product.name}
                       </span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-sm text-slate-500">
+                  <td
+                    style={{
+                      padding: "1rem 1.5rem",
+                      fontSize: "0.875rem",
+                      color: "#64748b",
+                    }}
+                  >
                     {product.category}
                   </td>
-                  <td className="px-6 py-4 text-sm text-slate-500">
+                  <td
+                    style={{
+                      padding: "1rem 1.5rem",
+                      fontSize: "0.875rem",
+                      color: "#64748b",
+                    }}
+                  >
                     {product.variants.length} varian
                   </td>
-                  <td className="px-6 py-4">
+                  <td style={{ padding: "1rem 1.5rem" }}>
                     <span
-                      className={`text-xs px-2.5 py-1 rounded-full font-medium ${
-                        product.isAvailable
-                          ? "bg-green-50 text-green-600"
-                          : "bg-red-50 text-red-500"
-                      }`}
+                      style={{
+                        fontSize: "0.75rem",
+                        padding: "0.25rem 0.75rem",
+                        borderRadius: "9999px",
+                        fontWeight: "500",
+                        backgroundColor: product.isAvailable
+                          ? "#f0fdf4"
+                          : "#fef2f2",
+                        color: product.isAvailable ? "#16a34a" : "#dc2626",
+                      }}
                     >
                       {product.isAvailable ? "Tersedia" : "Habis"}
                     </span>
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center justify-end gap-2">
+                  <td style={{ padding: "1rem 1.5rem" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "flex-end",
+                        gap: "0.25rem",
+                      }}
+                    >
                       <button
-                        onClick={() => handleEdit(product)}
-                        className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+                        onClick={() => {
+                          setSelectedProduct(product);
+                          setIsModalOpen(true);
+                        }}
+                        style={{
+                          padding: "0.5rem",
+                          color: "#94a3b8",
+                          backgroundColor: "transparent",
+                          border: "none",
+                          borderRadius: "0.5rem",
+                          cursor: "pointer",
+                          transition: "all 0.2s",
+                        }}
                       >
-                        <Pencil size={16} />
+                        <Pencil size={15} />
                       </button>
                       <button
                         onClick={() => handleDelete(product._id)}
-                        className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                        style={{
+                          padding: "0.5rem",
+                          color: "#94a3b8",
+                          backgroundColor: "transparent",
+                          border: "none",
+                          borderRadius: "0.5rem",
+                          cursor: "pointer",
+                          transition: "all 0.2s",
+                        }}
                       >
-                        <Trash2 size={16} />
+                        <Trash2 size={15} />
                       </button>
                     </div>
                   </td>
@@ -176,11 +300,14 @@ export default function AdminProductsPage() {
         </div>
       )}
 
-      {/* Modal */}
       {isModalOpen && (
         <ProductFormModal
           product={selectedProduct}
-          onClose={handleModalClose}
+          onClose={() => {
+            setIsModalOpen(false);
+            setSelectedProduct(null);
+            fetchProducts();
+          }}
         />
       )}
     </div>

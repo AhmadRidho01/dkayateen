@@ -4,7 +4,13 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/authStore";
 import { SITE_NAME } from "@/constants";
-import { LayoutDashboard, Package, MessageSquare, LogOut } from "lucide-react";
+import {
+  LayoutDashboard,
+  Package,
+  MessageSquare,
+  LogOut,
+  ExternalLink,
+} from "lucide-react";
 
 const navItems = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -27,15 +33,49 @@ export default function AdminSidebar() {
   };
 
   return (
-    <aside className="w-64 min-h-screen bg-slate-900 flex flex-col">
+    <aside
+      style={{
+        width: "15rem",
+        minHeight: "100vh",
+        backgroundColor: "#0f172a",
+        display: "flex",
+        flexDirection: "column",
+        position: "sticky",
+        top: 0,
+        height: "100vh",
+      }}
+    >
       {/* Logo */}
-      <div className="p-6 border-b border-slate-800">
-        <h2 className="text-white font-bold text-lg">{SITE_NAME}</h2>
-        <p className="text-slate-400 text-xs mt-0.5">Admin Dashboard</p>
+      <div
+        style={{
+          padding: "1.5rem",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
+        }}
+      >
+        <h2 style={{ color: "white", fontWeight: "700", fontSize: "1rem" }}>
+          {SITE_NAME}
+        </h2>
+        <p
+          style={{
+            color: "#475569",
+            fontSize: "0.75rem",
+            marginTop: "0.125rem",
+          }}
+        >
+          Admin Panel
+        </p>
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 p-4 space-y-1">
+      <nav
+        style={{
+          flex: 1,
+          padding: "0.75rem",
+          display: "flex",
+          flexDirection: "column",
+          gap: "0.125rem",
+        }}
+      >
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;
@@ -43,26 +83,88 @@ export default function AdminSidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200 ${
-                isActive
-                  ? "bg-white/10 text-white"
-                  : "text-slate-400 hover:text-white hover:bg-white/5"
-              }`}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.75rem",
+                padding: "0.625rem 0.75rem",
+                borderRadius: "0.5rem",
+                fontSize: "0.875rem",
+                fontWeight: "500",
+                textDecoration: "none",
+                transition: "all 0.2s",
+                backgroundColor: isActive
+                  ? "rgba(255,255,255,0.1)"
+                  : "transparent",
+                color: isActive ? "white" : "#64748b",
+              }}
             >
-              <Icon size={18} />
+              <Icon size={16} />
               {item.label}
+              {isActive && (
+                <span
+                  style={{
+                    marginLeft: "auto",
+                    width: "0.375rem",
+                    height: "0.375rem",
+                    borderRadius: "9999px",
+                    backgroundColor: "#4ade80",
+                  }}
+                />
+              )}
             </Link>
           );
         })}
       </nav>
 
-      {/* Logout */}
-      <div className="p-4 border-t border-slate-800">
+      {/* Bottom */}
+      <div
+        style={{
+          padding: "0.75rem",
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+          display: "flex",
+          flexDirection: "column",
+          gap: "0.125rem",
+        }}
+      >
+        <Link
+          href="/"
+          target="_blank"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.75rem",
+            padding: "0.625rem 0.75rem",
+            borderRadius: "0.5rem",
+            fontSize: "0.875rem",
+            fontWeight: "500",
+            textDecoration: "none",
+            color: "#64748b",
+            transition: "all 0.2s",
+          }}
+        >
+          <ExternalLink size={16} />
+          Lihat Website
+        </Link>
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-white/5 transition-colors w-full"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.75rem",
+            padding: "0.625rem 0.75rem",
+            borderRadius: "0.5rem",
+            fontSize: "0.875rem",
+            fontWeight: "500",
+            color: "#64748b",
+            backgroundColor: "transparent",
+            border: "none",
+            cursor: "pointer",
+            width: "100%",
+            transition: "all 0.2s",
+          }}
         >
-          <LogOut size={18} />
+          <LogOut size={16} />
           Keluar
         </button>
       </div>

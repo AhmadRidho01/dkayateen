@@ -18,7 +18,6 @@ export default function AdminLayout({
   const isLoginPage = pathname === "/admin/login";
 
   useEffect(() => {
-    // Rehydrate dari localStorage setelah mount
     const token = localStorage.getItem("token");
     if (token) login(token);
     setMounted(true);
@@ -31,15 +30,13 @@ export default function AdminLayout({
   }, [mounted, isAuthenticated, isLoginPage, router]);
 
   if (!mounted) return null;
-
   if (isLoginPage) return <>{children}</>;
-
   if (!isAuthenticated) return null;
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-slate-50">
       <AdminSidebar />
-      <main className="flex-1 overflow-auto">{children}</main>
+      <main className="flex-1 min-h-screen overflow-auto">{children}</main>
     </div>
   );
 }

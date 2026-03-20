@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import axiosInstance from "@/lib/axios";
 import type { IProduct, IApiResponse } from "@/types";
 import ProductCard from "@/components/shared/ProductCard";
+import { containerStyle } from "@/constants";
 
 const CATEGORIES = ["Semua", "Kerupuk", "Rajungan", "Rengginang", "Kacang"];
 
@@ -42,23 +43,55 @@ export default function ProductsClient() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div style={{ minHeight: "100vh", backgroundColor: "#f8fafc" }}>
       {/* Page Header */}
-      <div className="bg-white border-b border-slate-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 pt-navbar">
+      <div
+        style={{ backgroundColor: "white", borderBottom: "1px solid #f1f5f9" }}
+      >
+        <div
+          style={{
+            ...containerStyle,
+            paddingTop: "7rem",
+            paddingBottom: "2rem",
+          }}
+        >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-green-600 font-medium tracking-widest uppercase text-xs mb-2">
+            <p
+              style={{
+                color: "#16a34a",
+                fontWeight: "500",
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                fontSize: "0.75rem",
+                marginBottom: "0.5rem",
+              }}
+            >
               Katalog
             </p>
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-end",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+                gap: "1rem",
+              }}
+            >
+              <h1
+                style={{
+                  fontSize: "2.25rem",
+                  fontWeight: "700",
+                  letterSpacing: "-0.025em",
+                  color: "#0f172a",
+                }}
+              >
                 Semua Produk
               </h1>
-              <p className="text-slate-400 text-sm">
+              <p style={{ color: "#94a3b8", fontSize: "0.875rem" }}>
                 {loading ? "..." : `${filtered.length} produk ditemukan`}
               </p>
             </div>
@@ -69,17 +102,29 @@ export default function ProductsClient() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex flex-wrap gap-2 mt-6"
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "0.5rem",
+              marginTop: "1.5rem",
+            }}
           >
             {CATEGORIES.map((category) => (
               <button
                 key={category}
                 onClick={() => handleFilter(category)}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
-                  activeCategory === category
-                    ? "bg-slate-900 text-white shadow-sm"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                }`}
+                style={{
+                  padding: "0.375rem 1rem",
+                  borderRadius: "9999px",
+                  fontSize: "0.875rem",
+                  fontWeight: "500",
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                  backgroundColor:
+                    activeCategory === category ? "#0f172a" : "#f1f5f9",
+                  color: activeCategory === category ? "white" : "#475569",
+                }}
               >
                 {category}
               </button>
@@ -89,18 +134,59 @@ export default function ProductsClient() {
       </div>
 
       {/* Products Grid */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div
+        style={{ ...containerStyle, paddingTop: "3rem", paddingBottom: "4rem" }}
+      >
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "2rem",
+            }}
+          >
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="rounded-2xl overflow-hidden bg-white">
-                <div className="bg-slate-100 h-56 animate-pulse" />
-                <div className="p-6 space-y-3">
-                  <div className="bg-slate-100 h-3 w-1/4 rounded animate-pulse" />
-                  <div className="bg-slate-100 h-5 w-2/3 rounded animate-pulse" />
-                  <div className="bg-slate-100 h-4 w-full rounded animate-pulse" />
-                  <div className="bg-slate-100 h-4 w-4/5 rounded animate-pulse" />
-                  <div className="bg-slate-100 h-10 w-full rounded-lg animate-pulse mt-4" />
+              <div
+                key={i}
+                style={{
+                  borderRadius: "1rem",
+                  overflow: "hidden",
+                  backgroundColor: "white",
+                }}
+              >
+                <div style={{ backgroundColor: "#f1f5f9", height: "14rem" }} />
+                <div
+                  style={{
+                    padding: "1.5rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.75rem",
+                  }}
+                >
+                  <div
+                    style={{
+                      backgroundColor: "#f1f5f9",
+                      height: "0.75rem",
+                      width: "33%",
+                      borderRadius: "0.25rem",
+                    }}
+                  />
+                  <div
+                    style={{
+                      backgroundColor: "#f1f5f9",
+                      height: "1.25rem",
+                      width: "66%",
+                      borderRadius: "0.25rem",
+                    }}
+                  />
+                  <div
+                    style={{
+                      backgroundColor: "#f1f5f9",
+                      height: "2.5rem",
+                      width: "100%",
+                      borderRadius: "0.5rem",
+                    }}
+                  />
                 </div>
               </div>
             ))}
@@ -109,11 +195,23 @@ export default function ProductsClient() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center py-24"
+            style={{
+              textAlign: "center",
+              paddingTop: "6rem",
+              paddingBottom: "6rem",
+            }}
           >
-            <p className="text-slate-300 text-6xl mb-4">🥡</p>
-            <p className="text-slate-500 font-medium">Produk tidak ditemukan</p>
-            <p className="text-slate-400 text-sm mt-1">
+            <p style={{ fontSize: "3rem", marginBottom: "1rem" }}>🥡</p>
+            <p style={{ color: "#475569", fontWeight: "500" }}>
+              Produk tidak ditemukan
+            </p>
+            <p
+              style={{
+                color: "#94a3b8",
+                fontSize: "0.875rem",
+                marginTop: "0.25rem",
+              }}
+            >
               Coba pilih kategori lain
             </p>
           </motion.div>
@@ -125,7 +223,11 @@ export default function ProductsClient() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                gap: "2rem",
+              }}
             >
               {filtered.map((product, index) => (
                 <ProductCard

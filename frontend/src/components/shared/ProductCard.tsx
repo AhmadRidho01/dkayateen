@@ -35,8 +35,19 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
         />
         {/* Category Badge */}
-        <div className="absolute top-3 left-3">
-          <span className="text-xs px-2.5 py-1 bg-white/90 backdrop-blur-sm text-slate-700 font-medium rounded-full shadow-sm">
+        <div style={{ position: "absolute", top: "0.75rem", left: "0.75rem" }}>
+          <span
+            style={{
+              fontSize: "0.75rem",
+              padding: "0.25rem 0.625rem",
+              backgroundColor: "rgba(255,255,255,0.9)",
+              backdropFilter: "blur(4px)",
+              color: "#334155",
+              fontWeight: "500",
+              borderRadius: "9999px",
+              boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+            }}
+          >
             {product.category}
           </span>
         </div>
@@ -51,35 +62,87 @@ export default function ProductCard({ product, index }: ProductCardProps) {
       </div>
 
       {/* Content */}
-      <div className="p-6 flex flex-col flex-1">
-        <h3 className="font-semibold text-slate-900 text-lg mb-2 leading-snug">
+      <div
+        style={{
+          padding: "1.25rem 1.5rem 1.5rem",
+          display: "flex",
+          flexDirection: "column",
+          flex: 1,
+        }}
+      >
+        <h3
+          style={{
+            fontWeight: "600",
+            color: "#0f172a",
+            fontSize: "1.1rem",
+            marginBottom: "0.5rem",
+            lineHeight: "1.4",
+          }}
+        >
           {product.name}
         </h3>
-        <p className="text-slate-500 text-sm line-clamp-2 mb-4 leading-relaxed flex-1">
+        <p
+          style={{
+            color: "#64748b",
+            fontSize: "0.875rem",
+            lineHeight: "1.6",
+            marginBottom: "1rem",
+            flex: 1,
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+          }}
+        >
           {product.description}
         </p>
 
         {/* Variants */}
         {product.variants.length > 0 && (
-          <div className="mb-5">
-            <p className="text-xs text-slate-400 font-medium mb-2">
+          <div style={{ marginBottom: "1.25rem" }}>
+            <p
+              style={{
+                fontSize: "0.75rem",
+                color: "#94a3b8",
+                fontWeight: "500",
+                marginBottom: "0.5rem",
+              }}
+            >
               {product.variants.length} Varian Tersedia
             </p>
-            <div className="flex flex-wrap gap-1.5">
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.375rem" }}>
               {product.variants.slice(0, 4).map((variant) => (
                 <span
                   key={variant.name}
-                  className={`text-xs px-2.5 py-1 rounded-full border ${
-                    variant.isAvailable
-                      ? "bg-slate-50 border-slate-200 text-slate-600"
-                      : "bg-slate-50 border-slate-100 text-slate-300 line-through"
-                  }`}
+                  style={{
+                    fontSize: "0.75rem",
+                    padding: "0.25rem 0.625rem",
+                    borderRadius: "9999px",
+                    border: "1px solid",
+                    borderColor: variant.isAvailable ? "#e2e8f0" : "#f1f5f9",
+                    backgroundColor: variant.isAvailable
+                      ? "#f8fafc"
+                      : "#f8fafc",
+                    color: variant.isAvailable ? "#475569" : "#cbd5e1",
+                    textDecoration: variant.isAvailable
+                      ? "none"
+                      : "line-through",
+                  }}
                 >
                   {variant.name}
                 </span>
               ))}
               {product.variants.length > 4 && (
-                <span className="text-xs px-2.5 py-1 bg-slate-50 border border-slate-200 text-slate-500 rounded-full">
+                <span
+                  style={{
+                    fontSize: "0.75rem",
+                    padding: "0.25rem 0.625rem",
+                    borderRadius: "9999px",
+                    border: "1px solid #e2e8f0",
+                    backgroundColor: "#f8fafc",
+                    color: "#64748b",
+                  }}
+                >
                   +{product.variants.length - 4} lagi
                 </span>
               )}
@@ -92,23 +155,26 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           href={waLink}
           target="_blank"
           rel="noopener noreferrer"
-          className={`flex items-center justify-center gap-2 w-full py-3 text-sm font-semibold rounded-xl transition-all duration-200 ${
-            product.isAvailable
-              ? "bg-green-500 hover:bg-green-600 text-white hover:shadow-md hover:shadow-green-500/20"
-              : "bg-slate-100 text-slate-300 cursor-not-allowed pointer-events-none"
-          }`}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.5rem",
+            width: "100%",
+            padding: "0.75rem 1rem",
+            fontSize: "0.875rem",
+            fontWeight: "600",
+            borderRadius: "0.75rem",
+            textDecoration: "none",
+            transition: "all 0.2s",
+            backgroundColor: product.isAvailable ? "#22c55e" : "#f1f5f9",
+            color: product.isAvailable ? "white" : "#94a3b8",
+            pointerEvents: product.isAvailable ? "auto" : "none",
+            marginTop: "auto",
+          }}
         >
-          {product.isAvailable ? (
-            <>
-              <MessageCircle size={16} />
-              Pesan Sekarang
-            </>
-          ) : (
-            <>
-              <ShoppingBag size={16} />
-              Tidak Tersedia
-            </>
-          )}
+          <MessageCircle size={16} />
+          {product.isAvailable ? "Pesan Sekarang" : "Tidak Tersedia"}
         </a>
       </div>
     </motion.div>

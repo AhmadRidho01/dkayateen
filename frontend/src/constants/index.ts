@@ -12,3 +12,16 @@ export const WHATSAPP_MESSAGES = {
 export const SITE_NAME = "D'Kayateen";
 export const SITE_DESCRIPTION =
   "Produk olahan laut dan camilan berkualitas dari D'Kayateen";
+
+// Layout
+export const containerStyle = {
+  maxWidth: "72rem",
+  margin: "0 auto",
+  paddingLeft: "2rem",
+  paddingRight: "2rem",
+};
+
+export const sectionStyle = {
+  paddingTop: "7rem",
+  paddingBottom: "7rem",
+};

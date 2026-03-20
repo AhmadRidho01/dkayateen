@@ -7,6 +7,12 @@ import { ArrowRight } from "lucide-react";
 import axiosInstance from "@/lib/axios";
 import type { IProduct, IApiResponse } from "@/types";
 import ProductCard from "@/components/shared/ProductCard";
+import {
+  containerStyle,
+  sectionStyle,
+  WHATSAPP_NUMBER,
+  WHATSAPP_MESSAGES,
+} from "@/constants";
 
 export default function FeaturedProducts() {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -28,23 +34,54 @@ export default function FeaturedProducts() {
   }, []);
 
   return (
-    <section className="py-28 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 gap-6">
+    <section
+      style={{
+        paddingTop: "3.5rem",
+        paddingBottom: "5rem",
+        backgroundColor: "white",
+      }}
+    >
+      <div style={containerStyle}>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            marginBottom: "1rem",
+            gap: "1.5rem",
+          }}
+        >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-green-600 font-medium tracking-widest uppercase text-xs mb-3">
+            <p
+              style={{
+                color: "#16a34a",
+                fontWeight: "500",
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                fontSize: "0.75rem",
+                marginBottom: "0.1rem",
+              }}
+            >
               Pilihan Terbaik
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+            <h2
+              style={{
+                fontSize: "2.25rem",
+                fontWeight: "700",
+                letterSpacing: "-0.025em",
+                color: "#0f172a",
+              }}
+            >
               Produk Unggulan
             </h2>
           </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -53,38 +90,102 @@ export default function FeaturedProducts() {
           >
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors group"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                fontSize: "0.875rem",
+                fontWeight: "500",
+                color: "#475569",
+                textDecoration: "none",
+              }}
             >
               Lihat Semua
-              <ArrowRight
-                size={16}
-                className="group-hover:translate-x-1 transition-transform"
-              />
+              <ArrowRight size={16} />
             </Link>
           </motion.div>
         </div>
 
         {/* Products Grid */}
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "2rem",
+            }}
+          >
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="rounded-2xl overflow-hidden">
-                <div className="bg-slate-100 h-56 animate-pulse" />
-                <div className="p-6 space-y-3">
-                  <div className="bg-slate-100 h-4 w-1/3 rounded animate-pulse" />
-                  <div className="bg-slate-100 h-5 w-2/3 rounded animate-pulse" />
-                  <div className="bg-slate-100 h-4 w-full rounded animate-pulse" />
-                  <div className="bg-slate-100 h-10 w-full rounded-lg animate-pulse" />
+              <div
+                key={i}
+                style={{
+                  borderRadius: "1rem",
+                  overflow: "hidden",
+                  backgroundColor: "white",
+                }}
+              >
+                <div
+                  style={{
+                    backgroundColor: "#f1f5f9",
+                    height: "14rem",
+                    animation: "pulse 2s infinite",
+                  }}
+                />
+                <div
+                  style={{
+                    padding: "1.5rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.75rem",
+                  }}
+                >
+                  <div
+                    style={{
+                      backgroundColor: "#f1f5f9",
+                      height: "0.75rem",
+                      width: "33%",
+                      borderRadius: "0.25rem",
+                    }}
+                  />
+                  <div
+                    style={{
+                      backgroundColor: "#f1f5f9",
+                      height: "1.25rem",
+                      width: "66%",
+                      borderRadius: "0.25rem",
+                    }}
+                  />
+                  <div
+                    style={{
+                      backgroundColor: "#f1f5f9",
+                      height: "2.5rem",
+                      width: "100%",
+                      borderRadius: "0.5rem",
+                    }}
+                  />
                 </div>
               </div>
             ))}
           </div>
         ) : products.length === 0 ? (
-          <p className="text-center text-slate-400 py-16">
+          <p
+            style={{
+              textAlign: "center",
+              color: "#94a3b8",
+              paddingTop: "4rem",
+              paddingBottom: "4rem",
+            }}
+          >
             Produk belum tersedia.
           </p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "2rem",
+            }}
+          >
             {products.map((product, index) => (
               <ProductCard key={product._id} product={product} index={index} />
             ))}

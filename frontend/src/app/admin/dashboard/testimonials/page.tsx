@@ -6,6 +6,7 @@ import axiosInstance from "@/lib/axios";
 import type { IApiResponse, ITestimonial } from "@/types";
 import { Plus, Pencil, Trash2, MessageSquare, Eye, EyeOff } from "lucide-react";
 import TestimonialFormModal from "@/components/shared/TestimonialFormModal";
+import { containerStyle } from "@/constants";
 
 export default function AdminTestimonialsPage() {
   const [testimonials, setTestimonials] = useState<ITestimonial[]>([]);
@@ -54,14 +55,40 @@ export default function AdminTestimonialsPage() {
   };
 
   return (
-    <div className="p-8">
+    <div
+      style={{
+        ...containerStyle,
+        paddingTop: "2.5rem",
+        paddingBottom: "2.5rem",
+      }}
+    >
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "2rem",
+        }}
+      >
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+          <h1
+            style={{
+              fontSize: "1.5rem",
+              fontWeight: "700",
+              letterSpacing: "-0.025em",
+              color: "#0f172a",
+            }}
+          >
             Testimoni
           </h1>
-          <p className="text-slate-500 text-sm mt-1">
+          <p
+            style={{
+              color: "#94a3b8",
+              fontSize: "0.875rem",
+              marginTop: "0.25rem",
+            }}
+          >
             Kelola testimoni pelanggan
           </p>
         </div>
@@ -70,7 +97,19 @@ export default function AdminTestimonialsPage() {
             setSelectedTestimonial(null);
             setIsModalOpen(true);
           }}
-          className="flex items-center gap-2 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-sm font-medium rounded-lg transition-colors"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            padding: "0.625rem 1.25rem",
+            backgroundColor: "#0f172a",
+            color: "white",
+            fontSize: "0.875rem",
+            fontWeight: "500",
+            borderRadius: "0.75rem",
+            border: "none",
+            cursor: "pointer",
+          }}
         >
           <Plus size={16} />
           Tambah Testimoni
@@ -79,25 +118,58 @@ export default function AdminTestimonialsPage() {
 
       {/* Content */}
       {loading ? (
-        <div className="space-y-3">
+        <div
+          style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}
+        >
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="bg-white rounded-xl h-24 animate-pulse" />
+            <div
+              key={i}
+              style={{
+                backgroundColor: "white",
+                borderRadius: "0.75rem",
+                height: "5rem",
+                border: "1px solid #f1f5f9",
+              }}
+            />
           ))}
         </div>
       ) : testimonials.length === 0 ? (
-        <div className="text-center py-24 bg-white rounded-2xl border border-slate-100">
-          <MessageSquare size={40} className="text-slate-300 mx-auto mb-3" />
-          <p className="text-slate-500">Belum ada testimoni.</p>
+        <div
+          style={{
+            textAlign: "center",
+            paddingTop: "6rem",
+            paddingBottom: "6rem",
+            backgroundColor: "white",
+            borderRadius: "1rem",
+            border: "1px solid #f1f5f9",
+          }}
+        >
+          <MessageSquare
+            size={40}
+            style={{ color: "#e2e8f0", margin: "0 auto 0.75rem" }}
+          />
+          <p style={{ color: "#64748b" }}>Belum ada testimoni.</p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div
+          style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}
+        >
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial._id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="bg-white rounded-xl p-5 border border-slate-100 flex items-start gap-4"
+              style={{
+                backgroundColor: "white",
+                borderRadius: "1rem",
+                padding: "1.25rem 1.5rem",
+                border: "1px solid #f1f5f9",
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "1rem",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+              }}
             >
               <img
                 src={
@@ -105,39 +177,91 @@ export default function AdminTestimonialsPage() {
                   `https://ui-avatars.com/api/?name=${testimonial.name}&background=e2e8f0&color=475569`
                 }
                 alt={testimonial.name}
-                className="w-10 h-10 rounded-full object-cover shrink-0"
+                style={{
+                  width: "2.5rem",
+                  height: "2.5rem",
+                  borderRadius: "9999px",
+                  objectFit: "cover",
+                  flexShrink: 0,
+                }}
               />
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <p className="font-medium text-slate-900 text-sm">
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    marginBottom: "0.375rem",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight: "600",
+                      color: "#0f172a",
+                      fontSize: "0.875rem",
+                    }}
+                  >
                     {testimonial.name}
                   </p>
-                  <span className="text-xs text-slate-400">•</span>
-                  <p className="text-xs text-slate-500">{testimonial.role}</p>
+                  <span style={{ color: "#cbd5e1", fontSize: "0.75rem" }}>
+                    •
+                  </span>
+                  <p style={{ fontSize: "0.75rem", color: "#64748b" }}>
+                    {testimonial.role}
+                  </p>
                   <span
-                    className={`text-xs px-2 py-0.5 rounded-full ${
-                      testimonial.isVisible
-                        ? "bg-green-50 text-green-600"
-                        : "bg-slate-100 text-slate-400"
-                    }`}
+                    style={{
+                      fontSize: "0.75rem",
+                      padding: "0.125rem 0.625rem",
+                      borderRadius: "9999px",
+                      backgroundColor: testimonial.isVisible
+                        ? "#f0fdf4"
+                        : "#f8fafc",
+                      color: testimonial.isVisible ? "#16a34a" : "#94a3b8",
+                    }}
                   >
                     {testimonial.isVisible ? "Tampil" : "Disembunyikan"}
                   </span>
                 </div>
-                <p className="text-slate-500 text-sm line-clamp-2">
+                <p
+                  style={{
+                    color: "#64748b",
+                    fontSize: "0.875rem",
+                    lineHeight: "1.5",
+                    overflow: "hidden",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: "vertical",
+                  }}
+                >
                   {testimonial.message}
                 </p>
               </div>
-              <div className="flex items-center gap-1 shrink-0">
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.25rem",
+                  flexShrink: 0,
+                }}
+              >
                 <button
                   onClick={() => handleToggleVisibility(testimonial)}
-                  className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+                  style={{
+                    padding: "0.5rem",
+                    color: "#94a3b8",
+                    backgroundColor: "transparent",
+                    border: "none",
+                    borderRadius: "0.5rem",
+                    cursor: "pointer",
+                  }}
                   title={testimonial.isVisible ? "Sembunyikan" : "Tampilkan"}
                 >
                   {testimonial.isVisible ? (
-                    <EyeOff size={16} />
+                    <EyeOff size={15} />
                   ) : (
-                    <Eye size={16} />
+                    <Eye size={15} />
                   )}
                 </button>
                 <button
@@ -145,15 +269,29 @@ export default function AdminTestimonialsPage() {
                     setSelectedTestimonial(testimonial);
                     setIsModalOpen(true);
                   }}
-                  className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+                  style={{
+                    padding: "0.5rem",
+                    color: "#94a3b8",
+                    backgroundColor: "transparent",
+                    border: "none",
+                    borderRadius: "0.5rem",
+                    cursor: "pointer",
+                  }}
                 >
-                  <Pencil size={16} />
+                  <Pencil size={15} />
                 </button>
                 <button
                   onClick={() => handleDelete(testimonial._id)}
-                  className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                  style={{
+                    padding: "0.5rem",
+                    color: "#94a3b8",
+                    backgroundColor: "transparent",
+                    border: "none",
+                    borderRadius: "0.5rem",
+                    cursor: "pointer",
+                  }}
                 >
-                  <Trash2 size={16} />
+                  <Trash2 size={15} />
                 </button>
               </div>
             </motion.div>

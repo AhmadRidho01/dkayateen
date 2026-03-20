@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MessageCircle, Instagram, Facebook } from "lucide-react";
 import { SITE_NAME, WHATSAPP_NUMBER, WHATSAPP_MESSAGES } from "@/constants";
+import { containerStyle } from "@/constants";
 
 export default function Footer() {
   const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -8,46 +9,97 @@ export default function Footer() {
   )}`;
 
   return (
-    <footer className="bg-slate-900">
-      {/* Main Footer */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+    <footer style={{ backgroundColor: "#0f172a" }}>
+      <div
+        style={{ ...containerStyle, paddingTop: "2rem", paddingBottom: "2rem" }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gap: "3rem",
+          }}
+        >
           {/* Brand */}
-          <div className="md:col-span-2">
-            <h3 className="text-white font-bold text-xl mb-3">{SITE_NAME}</h3>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
+          <div style={{ gridColumn: "span 2" }}>
+            <h3
+              style={{
+                color: "white",
+                fontWeight: "700",
+                fontSize: "1.25rem",
+                marginBottom: ".5rem",
+              }}
+            >
+              {SITE_NAME}
+            </h3>
+            <p
+              style={{
+                color: "#64748b",
+                fontSize: "0.875rem",
+                lineHeight: "1.75",
+                maxWidth: "25rem",
+              }}
+            >
               Produk olahan laut dan camilan berkualitas tinggi, dibuat dengan
               bahan pilihan langsung dari pengrajin lokal terpercaya.
             </p>
-            {/* Social */}
-            <div className="flex items-center gap-3 mt-6">
-              <a
-                href="#"
-                className="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors"
-              >
-                <Instagram size={16} />
-              </a>
-              <a
-                href="#"
-                className="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors"
-              >
-                <Facebook size={16} />
-              </a>
-              <a
-                href={waLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors"
-              >
-                <MessageCircle size={16} />
-              </a>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.75rem",
+                marginTop: "1.5rem",
+              }}
+            >
+              {[
+                { icon: Instagram, href: "#" },
+                { icon: Facebook, href: "#" },
+                { icon: MessageCircle, href: waLink },
+              ].map(({ icon: Icon, href }, i) => (
+                <a
+                  key={i}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    width: "2.25rem",
+                    height: "2.25rem",
+                    borderRadius: "0.5rem",
+                    backgroundColor: "rgba(255,255,255,0.9)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#64748b",
+                    transition: "all 0.2s",
+                    textDecoration: "none",
+                  }}
+                >
+                  <Icon size={18} />
+                </a>
+              ))}
             </div>
           </div>
 
           {/* Navigasi */}
           <div>
-            <h4 className="text-white font-semibold text-sm mb-4">Navigasi</h4>
-            <ul className="space-y-3">
+            <h4
+              style={{
+                color: "white",
+                fontWeight: "600",
+                fontSize: "0.875rem",
+                marginBottom: ".5rem",
+              }}
+            >
+              Navigasi
+            </h4>
+            <ul
+              style={{
+                listStyle: "none",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.3rem",
+              }}
+            >
               {[
                 { href: "/", label: "Beranda" },
                 { href: "/products", label: "Produk" },
@@ -57,7 +109,12 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-slate-400 hover:text-white text-sm transition-colors"
+                    style={{
+                      color: "#64748b",
+                      fontSize: "0.875rem",
+                      textDecoration: "none",
+                      transition: "color 0.2s",
+                    }}
                   >
                     {link.label}
                   </Link>
@@ -68,8 +125,24 @@ export default function Footer() {
 
           {/* Produk */}
           <div>
-            <h4 className="text-white font-semibold text-sm mb-4">Produk</h4>
-            <ul className="space-y-3">
+            <h4
+              style={{
+                color: "white",
+                fontWeight: "600",
+                fontSize: "0.875rem",
+                marginBottom: ".5rem",
+              }}
+            >
+              Produk
+            </h4>
+            <ul
+              style={{
+                listStyle: "none",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.3rem",
+              }}
+            >
               {[
                 "Kerupuk Ikan",
                 "Kerupuk Rambak Cumi",
@@ -81,7 +154,11 @@ export default function Footer() {
                 <li key={product}>
                   <Link
                     href="/products"
-                    className="text-slate-400 hover:text-white text-sm transition-colors"
+                    style={{
+                      color: "#64748b",
+                      fontSize: "0.875rem",
+                      textDecoration: "none",
+                    }}
                   >
                     {product}
                   </Link>
@@ -93,16 +170,34 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-slate-800">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-slate-500 text-xs">
+      <div style={{ borderTop: "1px solid rgba(255,255,255,0.3)" }}>
+        <div
+          style={{
+            ...containerStyle,
+            paddingTop: "1.5rem",
+            paddingBottom: "2rem",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "0.75rem",
+          }}
+        >
+          <p style={{ color: "#64748b", fontSize: "0.75rem" }}>
             © {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
           </p>
           <a
             href={waLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-xs text-slate-400 hover:text-white transition-colors"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              fontSize: "0.75rem",
+              color: "#64748b",
+              textDecoration: "none",
+            }}
           >
             <MessageCircle size={14} />
             Hubungi via WhatsApp

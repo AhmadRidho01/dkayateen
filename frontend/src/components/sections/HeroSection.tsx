@@ -3,7 +3,11 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, MessageCircle } from "lucide-react";
-import { WHATSAPP_NUMBER, WHATSAPP_MESSAGES } from "@/constants";
+import {
+  WHATSAPP_NUMBER,
+  WHATSAPP_MESSAGES,
+  containerStyle,
+} from "@/constants";
 
 export default function HeroSection() {
   const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -11,48 +15,93 @@ export default function HeroSection() {
   )}`;
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section
+      style={{
+        position: "relative",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
+      }}
+    >
       {/* Background */}
-      <div className="absolute inset-0">
+      <div style={{ position: "absolute", inset: 0 }}>
         <img
           src="https://images.unsplash.com/photo-1593840835024-4ccbf5b171d7?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Hero Background"
-          className="w-full h-full object-cover"
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-linear-to-br from-slate-900/80 via-slate-900/60 to-slate-800/40" />
-        <div className="absolute inset-0 bg-linear-to-t from-slate-900/60 via-transparent to-transparent" />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.6) 50%, rgba(30,41,59,0.4) 100%)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(to top, rgba(15,23,42,0.6) 0%, transparent 50%)",
+          }}
+        />
       </div>
 
-      {/* Decorative Elements */}
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl" />
+      {/* Decorative blobs */}
+      <div
+        style={{
+          position: "absolute",
+          top: "25%",
+          right: "25%",
+          width: "24rem",
+          height: "24rem",
+          backgroundColor: "rgba(34,197,94,0.08)",
+          borderRadius: "9999px",
+          filter: "blur(64px)",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: "25%",
+          left: "25%",
+          width: "16rem",
+          height: "16rem",
+          backgroundColor: "rgba(16,185,129,0.08)",
+          borderRadius: "9999px",
+          filter: "blur(64px)",
+        }}
+      />
 
       {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6"
-          >
-            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-white/90 text-sm font-medium">
-              Produk Olahan Laut & Camilan Premium
-            </span>
-          </motion.div>
-
+      <div
+        style={{
+          ...containerStyle,
+          position: "relative",
+          zIndex: 10,
+          width: "100%",
+        }}
+      >
+        <div style={{ maxWidth: "48rem" }}>
           {/* Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 leading-[1.1]"
+            style={{
+              fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+              fontWeight: "800",
+              letterSpacing: "-0.025em",
+              color: "white",
+              marginBottom: "1.5rem",
+              lineHeight: "1.1",
+            }}
           >
             Cita Rasa
-            <span className="block text-green-400">Autentik</span>
+            <span style={{ display: "block", color: "#4ade80" }}>Autentik</span>
             D'Kayateen
           </motion.h1>
 
@@ -61,7 +110,13 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-slate-300 text-lg sm:text-xl max-w-xl mb-10 leading-relaxed"
+            style={{
+              color: "#cbd5e1",
+              fontSize: "1.125rem",
+              maxWidth: "36rem",
+              marginBottom: "2.5rem",
+              lineHeight: "1.75",
+            }}
           >
             Kerupuk ikan, rambak cumi, rajungan, kelor, rengginang, dan kacang
             sangrai. Dibuat dengan bahan pilihan, cita rasa terjamin.
@@ -72,23 +127,50 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4"
+            style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}
           >
             <Link
               href="/products"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-green-500 hover:bg-green-400 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-green-500/30 group"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                padding: "1rem 2rem",
+                backgroundColor: "#22c55e",
+                color: "white",
+                fontWeight: "600",
+                borderRadius: "0.75rem",
+                transition: "all 0.2s",
+                textDecoration: "none",
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor = "#16a34a")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor = "#22c55e")
+              }
             >
               Lihat Produk
-              <ArrowRight
-                size={18}
-                className="group-hover:translate-x-1 transition-transform"
-              />
+              <ArrowRight size={18} />
             </Link>
             <a
               href={waLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 backdrop-blur-sm transition-all duration-200"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                padding: "1rem 2rem",
+                backgroundColor: "rgba(255,255,255,0.1)",
+                color: "white",
+                fontWeight: "600",
+                borderRadius: "0.75rem",
+                border: "1px solid rgba(255,255,255,0.2)",
+                backdropFilter: "blur(8px)",
+                transition: "all 0.2s",
+                textDecoration: "none",
+              }}
             >
               <MessageCircle size={18} />
               Hubungi Kami
@@ -100,16 +182,32 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex items-center gap-8 mt-16 pt-8 border-t border-white/10"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "2rem",
+              marginTop: "2rem",
+              paddingTop: "1rem",
+              borderTop: "1px solid rgba(255,255,255,0.1)",
+            }}
           >
             {[
               { value: "6+", label: "Varian Produk" },
               { value: "100%", label: "Bahan Pilihan" },
-              { value: "24/7", label: "Layanan Info" },
             ].map((stat) => (
               <div key={stat.label}>
-                <p className="text-white font-bold text-2xl">{stat.value}</p>
-                <p className="text-slate-400 text-sm">{stat.label}</p>
+                <p
+                  style={{
+                    color: "white",
+                    fontWeight: "700",
+                    fontSize: "1.5rem",
+                  }}
+                >
+                  {stat.value}
+                </p>
+                <p style={{ color: "#94a3b8", fontSize: "0.875rem" }}>
+                  {stat.label}
+                </p>
               </div>
             ))}
           </motion.div>
@@ -121,15 +219,36 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        style={{
+          position: "absolute",
+          bottom: "2rem",
+          left: "50%",
+          transform: "translateX(-50%)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "0.5rem",
+        }}
       >
-        <span className="text-white/40 text-xs tracking-widest uppercase">
+        <span
+          style={{
+            color: "rgba(255,255,255,0.3)",
+            fontSize: "0.75rem",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+          }}
+        >
           Scroll
         </span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
-          className="w-0.5 h-8 bg-linear-to-b from-white/40 to-transparent"
+          style={{
+            width: "1px",
+            height: "2rem",
+            background:
+              "linear-gradient(to bottom, rgba(255,255,255,0.3), transparent)",
+          }}
         />
       </motion.div>
     </section>

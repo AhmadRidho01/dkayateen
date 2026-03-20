@@ -13,10 +13,7 @@ export default function AdminLoginPage() {
   const router = useRouter();
   const { login } = useAuthStore();
 
-  const [form, setForm] = useState<ILoginForm>({
-    username: "",
-    password: "",
-  });
+  const [form, setForm] = useState<ILoginForm>({ username: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -25,7 +22,6 @@ export default function AdminLoginPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
-
     try {
       const { data } = await axiosInstance.post<
         IApiResponse<{ token: string }>
@@ -42,65 +38,153 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
+    <div
+      style={{
+        minHeight: "100vh",
+        backgroundColor: "#f8fafc",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "1.5rem",
+      }}
+    >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md"
+        style={{ width: "100%", maxWidth: "24rem" }}
       >
         {/* Card */}
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+        <div
+          style={{
+            backgroundColor: "white",
+            borderRadius: "1.25rem",
+            border: "1px solid #f1f5f9",
+            boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
+            padding: "2.5rem",
+          }}
+        >
           {/* Header */}
-          <div className="text-center mb-8">
-            <div className="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <Lock size={20} className="text-white" />
+          <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+            <div
+              style={{
+                width: "3rem",
+                height: "3rem",
+                backgroundColor: "#0f172a",
+                borderRadius: "0.875rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "0 auto 1rem",
+              }}
+            >
+              <Lock size={20} style={{ color: "white" }} />
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+            <h1
+              style={{
+                fontSize: "1.375rem",
+                fontWeight: "700",
+                color: "#0f172a",
+                letterSpacing: "-0.025em",
+              }}
+            >
               Admin {SITE_NAME}
             </h1>
-            <p className="text-slate-500 text-sm mt-1">
+            <p
+              style={{
+                color: "#94a3b8",
+                fontSize: "0.875rem",
+                marginTop: "0.375rem",
+              }}
+            >
               Masuk untuk mengelola konten website
             </p>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit}>
             {/* Username */}
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">
+            <div style={{ marginBottom: "1rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "0.875rem",
+                  fontWeight: "500",
+                  color: "#374151",
+                  marginBottom: "0.5rem",
+                }}
+              >
                 Username
               </label>
               <input
                 type="text"
                 value={form.username}
                 onChange={(e) => setForm({ ...form, username: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:border-slate-400 focus:outline-none text-slate-900 text-sm transition-colors"
                 placeholder="Masukkan username"
                 required
+                style={{
+                  width: "100%",
+                  padding: "0.625rem 1rem",
+                  borderRadius: "0.625rem",
+                  border: "1px solid #e2e8f0",
+                  fontSize: "0.875rem",
+                  color: "#0f172a",
+                  outline: "none",
+                  boxSizing: "border-box",
+                  transition: "border-color 0.2s",
+                }}
               />
             </div>
 
             {/* Password */}
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "0.875rem",
+                  fontWeight: "500",
+                  color: "#374151",
+                  marginBottom: "0.5rem",
+                }}
+              >
                 Password
               </label>
-              <div className="relative">
+              <div style={{ position: "relative" }}>
                 <input
                   type={showPassword ? "text" : "password"}
                   value={form.password}
                   onChange={(e) =>
                     setForm({ ...form, password: e.target.value })
                   }
-                  className="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:border-slate-400 focus:outline-none text-slate-900 text-sm transition-colors pr-10"
                   placeholder="Masukkan password"
                   required
+                  style={{
+                    width: "100%",
+                    padding: "0.625rem 2.5rem 0.625rem 1rem",
+                    borderRadius: "0.625rem",
+                    border: "1px solid #e2e8f0",
+                    fontSize: "0.875rem",
+                    color: "#0f172a",
+                    outline: "none",
+                    boxSizing: "border-box",
+                    transition: "border-color 0.2s",
+                  }}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  style={{
+                    position: "absolute",
+                    right: "0.75rem",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    color: "#94a3b8",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
                 >
                   {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -112,7 +196,14 @@ export default function AdminLoginPage() {
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-red-500 text-sm"
+                style={{
+                  color: "#dc2626",
+                  fontSize: "0.875rem",
+                  marginBottom: "1rem",
+                  padding: "0.625rem 0.875rem",
+                  backgroundColor: "#fef2f2",
+                  borderRadius: "0.5rem",
+                }}
               >
                 {error}
               </motion.p>
@@ -122,7 +213,18 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-medium rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+              style={{
+                width: "100%",
+                padding: "0.75rem",
+                backgroundColor: loading ? "#94a3b8" : "#0f172a",
+                color: "white",
+                fontWeight: "600",
+                fontSize: "0.875rem",
+                borderRadius: "0.75rem",
+                border: "none",
+                cursor: loading ? "not-allowed" : "pointer",
+                transition: "all 0.2s",
+              }}
             >
               {loading ? "Memproses..." : "Masuk"}
             </button>

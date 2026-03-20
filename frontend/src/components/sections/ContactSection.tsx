@@ -2,7 +2,12 @@
 
 import { motion } from "framer-motion";
 import { MessageCircle, ArrowRight } from "lucide-react";
-import { WHATSAPP_NUMBER, WHATSAPP_MESSAGES, SITE_NAME } from "@/constants";
+import {
+  WHATSAPP_NUMBER,
+  WHATSAPP_MESSAGES,
+  SITE_NAME,
+  containerStyle,
+} from "@/constants";
 
 export default function ContactSection() {
   const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -10,28 +15,99 @@ export default function ContactSection() {
   )}`;
 
   return (
-    <section id="contact" className="py-28 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      id="contact"
+      style={{
+        paddingTop: "4rem",
+        paddingBottom: "7rem",
+        backgroundColor: "white",
+      }}
+    >
+      <div style={containerStyle}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="relative bg-slate-900 rounded-3xl p-12 sm:p-16 overflow-hidden"
+          style={{
+            position: "relative",
+            backgroundColor: "#0f172a",
+            borderRadius: "1.5rem",
+            padding: "2rem",
+            overflow: "hidden",
+            textAlign: "center",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
           {/* Decorative */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-green-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              right: 0,
+              width: "24rem",
+              height: "24rem",
+              backgroundColor: "rgba(34,197,94,0.08)",
+              borderRadius: "9999px",
+              filter: "blur(64px)",
+              transform: "translate(50%, -50%)",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              width: "16rem",
+              height: "16rem",
+              backgroundColor: "rgba(16,185,129,0.08)",
+              borderRadius: "9999px",
+              filter: "blur(64px)",
+              transform: "translate(-50%, 50%)",
+            }}
+          />
 
           {/* Content */}
-          <div className="relative z-10 text-center max-w-2xl mx-auto">
-            <p className="text-green-400 font-medium tracking-widest uppercase text-xs mb-4">
+          <div
+            style={{
+              position: "relative",
+              zIndex: 10,
+              maxWidth: "36rem",
+              width: "100%",
+            }}
+          >
+            <p
+              style={{
+                color: "#4ade80",
+                fontWeight: "500",
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                fontSize: "0.75rem",
+                marginBottom: "1rem",
+              }}
+            >
               Hubungi Kami
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
+            <h2
+              style={{
+                fontSize: "2.25rem",
+                fontWeight: "700",
+                letterSpacing: "-0.025em",
+                color: "white",
+                marginBottom: "1rem",
+              }}
+            >
               Tertarik dengan produk {SITE_NAME}?
             </h2>
-            <p className="text-slate-400 mb-10 leading-relaxed">
+            <p
+              style={{
+                color: "#94a3b8",
+                marginBottom: "2.5rem",
+                lineHeight: "1.75",
+              }}
+            >
               Hubungi kami langsung melalui WhatsApp untuk informasi produk,
               pemesanan, atau kerjasama sebagai reseller. Kami siap melayani
               Anda.
@@ -40,14 +116,24 @@ export default function ContactSection() {
               href={waLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-green-500 hover:bg-green-400 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-green-500/20 group"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "0.75rem",
+                padding: "1rem 2.5rem",
+                backgroundColor: "#22c55e",
+                color: "white",
+                fontWeight: "600",
+                borderRadius: "0.75rem",
+                textDecoration: "none",
+                fontSize: "1rem",
+                transition: "all 0.2s",
+              }}
             >
               <MessageCircle size={20} />
               Chat WhatsApp Sekarang
-              <ArrowRight
-                size={18}
-                className="group-hover:translate-x-1 transition-transform"
-              />
+              <ArrowRight size={18} />
             </a>
           </div>
         </motion.div>
